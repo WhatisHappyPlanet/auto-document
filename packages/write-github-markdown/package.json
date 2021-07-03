@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "write gihub markdown",
   "author": "liqi.shi <liqi.shi@shopee.com>",
-  "homepage": "https://github.com/WhatisHappyPlanet/autoDoc",
+  "homepage": "https://github.com/WhatisHappyPlanet/auto-document/tree/master/packages/write-github-markdown",
   "license": "ISC",
   "main": "lib/write-github-markdown.js",
   "directories": {
@@ -18,12 +18,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/WhatisHappyPlanet/autoDoc.git"
+    "url": "git+https://github.com/WhatisHappyPlanet/auto-document.git"
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "bugs": {
-    "url": "https://github.com/WhatisHappyPlanet/autoDoc/issues"
+    "url": "https://github.com/WhatisHappyPlanet/auto-document/issues"
   }
 }

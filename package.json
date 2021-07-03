@@ -13,9 +13,9 @@
   "author": "liqi.shi",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/WhatisHappyPlanet/autoDoc/issues"
+    "url": "https://github.com/WhatisHappyPlanet/auto-document/issues"
   },
-  "homepage": "https://github.com/WhatisHappyPlanet/autoDoc#readme",
+  "homepage": "https://github.com/WhatisHappyPlanet/auto-document#readme",
   "devDependencies": {
     "lerna": "^4.0.0"
   }
