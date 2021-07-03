@@ -1,0 +1,22 @@
+{
+  "name": "autodoc",
+  "version": "1.0.0",
+  "description": "It can automatically read the code structure and generate the document by specifying the front-end component library development specification",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/WhatisHappyPlanet/autoDoc.git"
+  },
+  "author": "liqi.shi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WhatisHappyPlanet/autoDoc/issues"
+  },
+  "homepage": "https://github.com/WhatisHappyPlanet/autoDoc#readme",
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
+}
