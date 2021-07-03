@@ -1,0 +1,29 @@
+{
+  "name": "@autodocument/parser-tsinterface",
+  "version": "0.0.0",
+  "description": "parser by tsinterface",
+  "author": "liqi.shi <liqi.shi@shopee.com>",
+  "homepage": "https://github.com/WhatisHappyPlanet/autoDoc",
+  "license": "ISC",
+  "main": "lib/parser-tsInterface.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WhatisHappyPlanet/autoDoc.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/WhatisHappyPlanet/autoDoc/issues"
+  }
+}
