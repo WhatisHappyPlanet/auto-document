@@ -25,5 +25,16 @@
   },
   "bugs": {
     "url": "https://github.com/WhatisHappyPlanet/auto-document/issues"
+  },
+  "devDependencies": {
+    "@types/babel__traverse": "^7.14.0",
+    "@types/doctrine": "^0.0.3",
+    "@types/node": "^16.0.0"
+  },
+  "dependencies": {
+    "@babel/parser": "^7.14.7",
+    "@babel/traverse": "^7.14.7",
+    "chalk": "^4.1.1",
+    "doctrine": "^3.0.0"
   }
 }

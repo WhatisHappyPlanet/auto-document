@@ -1,0 +1,25 @@
+{
+  "parser":{
+    "entry":"",
+    "plugins":[
+      {
+        "plugin":"@autodocument/parser-tsInterface",
+        "options":{
+          "interfaceName":"PropsType"
+        }
+      }
+    ]
+  },
+  "write":{
+    "end":"",
+    "plugins":[
+      {
+        "plugin":"@autodocument/write-github-markdown",
+        "options":{
+          "headerContent":"",
+          "footerContent":""
+        }
+      }
+    ]
+  }
+}

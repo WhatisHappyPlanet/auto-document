@@ -25,5 +25,11 @@
   },
   "bugs": {
     "url": "https://github.com/WhatisHappyPlanet/auto-document/issues"
+  },
+  "devDependencies": {
+    "@types/node": "^16.0.0"
+  },
+  "dependencies": {
+    "chalk": "^4.1.1"
   }
 }
