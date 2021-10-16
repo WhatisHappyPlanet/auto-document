@@ -1,11 +1,15 @@
 import { readFile } from "fs/promises";
 import path from "path";
 import chalk from "chalk";
-import { ConfigObjectType } from '@autodocument/shared';
+import { ConfigObjectType } from "@autodocument/shared";
 
 const getConfigFile = async () => {
   const currentExecPath = process.cwd();
-  const configFilePath = path.resolve(currentExecPath, "../../examples/parser-tsInterface/autoDoc.config.json");
+  // TODO: 做开发环境以及生产环境的区分
+  const configFilePath = path.resolve(
+    currentExecPath,
+    "../../examples/parser-tsInterface/autoDoc.config.json"
+  );
   const configObjectJson = await readFile(configFilePath, "utf8").catch((e) => {
     console.log(chalk.red("error"), e); //TODO: error message
   });

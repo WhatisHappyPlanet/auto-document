@@ -1,11 +1,10 @@
 {
-    "extends": "../../tsconfig.json",
-    "compilerOptions": {
-      "outDir": "lib",
-      "typeRoots": ["./node_modules/@types", "./src/@types"],
-      "types": ["node"]
-    },
-    "include": ["./src"],
-    "exclude": ["./lib"]
-  }
-  
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "lib",
+    "typeRoots": ["./node_modules/@types", "./src/@types"],
+    "types": ["node"]
+  },
+  "include": ["./src"],
+  "exclude": ["./lib"]
+}

@@ -4,7 +4,7 @@
     "baseUrl": ".",
     "outDir": "./lib",
     "types": ["node"],
-    "typeRoots": ["./node_modules/@types", "./src/typings"],
+    "typeRoots": ["./node_modules/@types", "src/@types"],
     "rootDirs": ["src"]
   },
   "include": ["./src"],
