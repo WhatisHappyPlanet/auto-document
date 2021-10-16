@@ -4,10 +4,11 @@ import traverse from "@babel/traverse";
 import path from "path";
 const parser = require("@babel/parser");
 import { handlePath, parseComment } from "./utils";
+import { ConfigObjectType, PluginType } from "@autodocument/shared";
 
 const getDocData = async (
   componentPath: string,
-  options?: pluginType["options"]
+  options?: PluginType["options"]
 ) => {
   const { interfaceName = "PropsType" } = options || {};
 
@@ -63,8 +64,8 @@ const getDocData = async (
 };
 
 const parserPlugin = async (
-  parserConfig: pluginType,
-  configObject: configObjectType
+  parserConfig: PluginType,
+  configObject: ConfigObjectType
 ) => {
   // 读取配置，获取到entryFile
   // 处理 entryFile

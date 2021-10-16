@@ -6,6 +6,7 @@
   "homepage": "https://github.com/WhatisHappyPlanet/auto-document/tree/master/packages/core",
   "license": "ISC",
   "main": "lib/index.js",
+  "module": "lib/index.mjs",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -21,19 +22,20 @@
     "url": "git+https://github.com/WhatisHappyPlanet/auto-document.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1",
-    "dev": "tsc"
+    "prepare": "tsup src/index.ts -d lib --format esm,cjs",
+    "test": "node -r tsm src/index.ts"
   },
   "bugs": {
     "url": "https://github.com/WhatisHappyPlanet/auto-document/issues"
   },
   "devDependencies": {
     "@types/node": "^16.0.0",
-    "tsm": "^2.1.2",
-    "typescript": "^4.4.4"
+    "tsup": "^5.4.0",
+    "tsm": "^2.1.2"
   },
   "dependencies": {
-    "@autodocument/parser-tsinterface": "^0.0.0",
+    "@autodocument/shared": "^0.0.0",
+    "@autodocument/parser-ts-interface": "^0.0.0",
     "@autodocument/write-github-markdown": "^0.0.0",
     "chalk": "^4.1.2"
   }

@@ -4,7 +4,8 @@
   "description": "It can automatically read the code structure and generate the document by specifying the front-end component library development specification",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "lerna run build",
+    "test": "lerna run test --scope @autodocument/core"
   },
   "repository": {
     "type": "git",
