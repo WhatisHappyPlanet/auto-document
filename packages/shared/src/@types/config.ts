@@ -1,23 +1,24 @@
-interface pluginType{
+export interface PluginType{
   plugin:string,
   options:{
     [key:string]:any
   }
 }
-type pluginsType = Array<pluginType> | undefined;
 
-interface configObjectType{
+export type PluginsType = Array<PluginType> | undefined;
+
+export interface ConfigObjectType{
   parser:{
     entry:string | undefined,
-    plugins:pluginsType
+    plugins:PluginsType
   },
   write:{
     end:string | undefined,
-    plugins:pluginsType
+    plugins:PluginsType
   }
 }
 
-interface parserResultType{
+export interface ParserResultType{
   componentNames:string[],
   documents:Array<string[]>
 }

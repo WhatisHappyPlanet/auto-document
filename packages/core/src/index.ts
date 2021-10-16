@@ -1,21 +1,22 @@
 import { readFile } from "fs/promises";
-import path = require("path");
-import chalk = require("chalk");
+import path from "path";
+import chalk from "chalk";
+import { ConfigObjectType } from '@autodocument/shared';
 
 const getConfigFile = async () => {
   const currentExecPath = process.cwd();
-  const configFilePath = path.resolve(currentExecPath, "./autoDoc.config.json");
+  const configFilePath = path.resolve(currentExecPath, "../../examples/parser-tsInterface/autoDoc.config.json");
   const configObjectJson = await readFile(configFilePath, "utf8").catch((e) => {
     console.log(chalk.red("error"), e); //TODO: error message
   });
   if (!configObjectJson) {
     return;
   }
-  const configObject: configObjectType = JSON.parse(configObjectJson);
+  const configObject: ConfigObjectType = JSON.parse(configObjectJson);
   return configObject;
 };
 
-const validateConfigFile = (configObject: configObjectType) => {
+const validateConfigFile = (configObject: ConfigObjectType) => {
   const { parser, write } = configObject;
   let validate = true;
 

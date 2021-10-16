@@ -3,8 +3,9 @@ import path from 'path';
 import fsPromise from 'fs/promises';
 import { tableHead, allowFileExtensions } from './constants';
 import {handlePath} from './utils';
+import { PluginType, ConfigObjectType, ParserResultType } from '@autodocument/shared';
 
-const write = async(writePlugin:pluginType,parserResult:parserResultType,configObject:configObjectType)=>{
+const write = async(writePlugin: PluginType ,parserResult: ParserResultType,configObject: ConfigObjectType)=>{
   const {options} = writePlugin;
   const {componentNames,documents} = parserResult;
   const currentExecPath = process.cwd();
