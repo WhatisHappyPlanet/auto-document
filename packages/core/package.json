@@ -23,19 +23,21 @@
   },
   "scripts": {
     "prepare": "tsup src/index.ts -d lib --format esm,cjs",
-    "test": "node -r tsm src/index.ts"
+    "test": "node -r tsm src/index.ts",
+    "dev": "./node_modules/.bin/nodemon --watch src -e ts --exec npm run test"
   },
   "bugs": {
     "url": "https://github.com/WhatisHappyPlanet/auto-document/issues"
   },
   "devDependencies": {
     "@types/node": "^16.0.0",
-    "tsup": "^5.4.0",
-    "tsm": "^2.1.2"
+    "nodemon": "^2.0.13",
+    "tsm": "^2.1.2",
+    "tsup": "^5.4.0"
   },
   "dependencies": {
-    "@autodocument/shared": "^0.0.0",
     "@autodocument/parser-ts-interface": "^0.0.0",
+    "@autodocument/shared": "^0.0.0",
     "@autodocument/write-github-markdown": "^0.0.0",
     "chalk": "^4.1.2"
   }
