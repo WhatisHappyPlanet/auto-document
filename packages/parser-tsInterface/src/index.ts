@@ -1,19 +1,22 @@
-import chalk from 'chalk';
-import fsPromise from 'fs/promises';
-import traverse from '@babel/traverse';
-import path from 'path';
+import chalk from "chalk";
+import { promises as fsPromise } from "fs";
+import traverse from "@babel/traverse";
+import path from "path";
 const parser = require("@babel/parser");
-import { handlePath,parseComment } from './utils';
+import { handlePath, parseComment } from "./utils";
 
-const getDocData = async(componentPath:string,options?:pluginType['options'])=>{
-  const {interfaceName = 'PropsType'} = options || {};
+const getDocData = async (
+  componentPath: string,
+  options?: pluginType["options"]
+) => {
+  const { interfaceName = "PropsType" } = options || {};
 
-  const code = await fsPromise.readFile(componentPath,'utf8').catch(e=>{
+  const code = await fsPromise.readFile(componentPath, "utf8").catch((e) => {
     return "";
-  })
+  });
 
   if (!code) {
-    return Promise.reject('error'); //TODO: error message
+    return Promise.reject("error"); //TODO: error message
   }
 
   const ast = parser.parse(code, {
@@ -21,7 +24,7 @@ const getDocData = async(componentPath:string,options?:pluginType['options'])=>{
     plugins: ["typescript", "jsx"],
   });
 
-  const documents:Array<string[]> = [];
+  const documents: Array<string[]> = [];
 
   traverse(ast, {
     TSInterfaceDeclaration(path) {
@@ -57,53 +60,56 @@ const getDocData = async(componentPath:string,options?:pluginType['options'])=>{
   });
 
   return documents;
-}
+};
 
-
-const parserPlugin = async(parserConfig:pluginType,configObject:configObjectType)=>{
+const parserPlugin = async (
+  parserConfig: pluginType,
+  configObject: configObjectType
+) => {
   // 读取配置，获取到entryFile
   // 处理 entryFile
   const currentExecPath = process.cwd();
-  const entryFile = configObject.parser.entry || '';
-  const handleEntryFile = await handlePath(entryFile,{
+  const entryFile = configObject.parser.entry || "";
+  const handleEntryFile = await handlePath(entryFile, {
     currentExecPath,
-    directoryToFilePath:true
-  }).catch(e=>{
+    directoryToFilePath: true,
+  }).catch((e) => {
     console.log(chalk.red(e)); // TODO: error message
-  })
+  });
 
-  if(!handleEntryFile){
+  if (!handleEntryFile) {
     return;
   }
   // 读取解析 entryFile
   // 处理组件及其路径
-  const code = fsPromise.readFile(handleEntryFile,'utf8').catch(e=>{
-    console.log(chalk.red('error'),e); // TODO: error message
+  const code = fsPromise.readFile(handleEntryFile, "utf8").catch((e) => {
+    console.log(chalk.red("error"), e); // TODO: error message
   });
 
-  if(!code){return;}
+  if (!code) {
+    return;
+  }
 
   const ast = parser.parse(code, {
     sourceType: "unambiguous",
     plugins: ["typescript"],
   });
 
-  const componentNames:string[] = [];
-  const componentPaths:string[] = [];
-
+  const componentNames: string[] = [];
+  const componentPaths: string[] = [];
 
   traverse(ast, {
     ExportNamedDeclaration(path) {
       // TODO: type check
       // @ts-ignore
       componentNames.push(path?.node?.specifiers?.[0]?.exported.name);
-      componentPaths.push(path?.node?.source?.value || '');
+      componentPaths.push(path?.node?.source?.value || "");
     },
   });
 
   for (let i = 0; i < componentPaths.length; i++) {
-    componentPaths[i] = await handlePath(path.resolve(handleEntryFile, "../"),{
-      currentExecPath
+    componentPaths[i] = await handlePath(path.resolve(handleEntryFile, "../"), {
+      currentExecPath,
     }).catch((e) => {
       return "";
     });
@@ -111,7 +117,7 @@ const parserPlugin = async(parserConfig:pluginType,configObject:configObjectType
 
   const documents = await Promise.all(
     componentPaths.map((componentPath) => {
-      return getDocData(componentPath,parserConfig.options);
+      return getDocData(componentPath, parserConfig.options);
     })
   ).catch((e) => {
     console.log(chalk.red(`can not get comments from ${e}`)); // TODO: error message
@@ -125,6 +131,6 @@ const parserPlugin = async(parserConfig:pluginType,configObject:configObjectType
     componentNames,
     documents,
   };
-}
+};
 
 export default parserPlugin;

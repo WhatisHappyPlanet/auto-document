@@ -21,17 +21,20 @@
     "url": "git+https://github.com/WhatisHappyPlanet/auto-document.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "dev": "tsc"
   },
   "bugs": {
     "url": "https://github.com/WhatisHappyPlanet/auto-document/issues"
   },
   "devDependencies": {
-    "@types/node": "^16.0.0"
+    "@types/node": "^16.0.0",
+    "tsm": "^2.1.2",
+    "typescript": "^4.4.4"
   },
   "dependencies": {
     "@autodocument/parser-tsinterface": "^0.0.0",
     "@autodocument/write-github-markdown": "^0.0.0",
-    "chalk": "^4.1.1"
+    "chalk": "^4.1.2"
   }
 }
