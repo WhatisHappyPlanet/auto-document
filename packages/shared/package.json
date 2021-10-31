@@ -23,6 +23,8 @@
     "build": "tsup src/index.ts -d lib --format esm,cjs --dts"
   },
   "devDependencies": {
-    "tsup": "^5.4.0"
+    "@types/node": "^16.11.0",
+    "tsup": "^5.4.0",
+    "typescript": "^4.4.4"
   }
 }

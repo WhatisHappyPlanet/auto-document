@@ -1,23 +1,23 @@
 {
-  "parser":{
-    "entry":"",
-    "plugins":[
+  "parser": {
+    "entry": "./src/index.ts",
+    "plugins": [
       {
-        "plugin":"@autodocument/parser-tsInterface",
-        "options":{
-          "interfaceName":"PropsType"
+        "plugin": "@autodocument/parser-ts-interface",
+        "options": {
+          "interfaceName": "PropsType"
         }
       }
     ]
   },
-  "write":{
-    "end":"",
-    "plugins":[
+  "write": {
+    "end": "./Readme.md",
+    "plugins": [
       {
-        "plugin":"@autodocument/write-github-markdown",
-        "options":{
-          "headerContent":"",
-          "footerContent":""
+        "plugin": "@autodocument/write-github-markdown",
+        "options": {
+          "headerContent": "",
+          "footerContent": ""
         }
       }
     ]

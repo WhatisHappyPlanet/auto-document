@@ -1,10 +1,14 @@
 import chalk from "chalk";
-import { promises as fsPromise } from "fs";
+import { readFile } from "fs/promises";
 import traverse from "@babel/traverse";
 import path from "path";
 const parser = require("@babel/parser");
 import { handlePath, parseComment } from "./utils";
-import { ConfigObjectType, PluginType } from "@autodocument/shared";
+import {
+  ConfigObjectType,
+  PluginType,
+  currentExecPath,
+} from "@autodocument/shared";
 
 const getDocData = async (
   componentPath: string,
@@ -12,7 +16,7 @@ const getDocData = async (
 ) => {
   const { interfaceName = "PropsType" } = options || {};
 
-  const code = await fsPromise.readFile(componentPath, "utf8").catch((e) => {
+  const code = await readFile(componentPath, "utf8").catch((e) => {
     return "";
   });
 
@@ -69,8 +73,8 @@ const parserPlugin = async (
 ) => {
   // 读取配置，获取到entryFile
   // 处理 entryFile
-  const currentExecPath = process.cwd();
   const entryFile = configObject.parser.entry || "";
+  console.log(currentExecPath, entryFile);
   const handleEntryFile = await handlePath(entryFile, {
     currentExecPath,
     directoryToFilePath: true,
@@ -81,9 +85,11 @@ const parserPlugin = async (
   if (!handleEntryFile) {
     return;
   }
+
+  console.log("handleEntryFile", handleEntryFile);
   // 读取解析 entryFile
   // 处理组件及其路径
-  const code = fsPromise.readFile(handleEntryFile, "utf8").catch((e) => {
+  const code = await readFile(handleEntryFile, "utf8").catch((e) => {
     console.log(chalk.red("error"), e); // TODO: error message
   });
 
@@ -109,9 +115,13 @@ const parserPlugin = async (
   });
 
   for (let i = 0; i < componentPaths.length; i++) {
-    componentPaths[i] = await handlePath(path.resolve(handleEntryFile, "../"), {
-      currentExecPath,
-    }).catch((e) => {
+    componentPaths[i] = await handlePath(
+      path.resolve(handleEntryFile, "../", componentPaths[i]),
+      {
+        currentExecPath,
+        directoryToFilePath: true,
+      }
+    ).catch((e) => {
       return "";
     });
   }

@@ -1,19 +1,30 @@
 import chalk from "chalk";
-import path from 'path';
-import fsPromise from 'fs/promises';
-import { tableHead, allowFileExtensions } from './constants';
-import {handlePath} from './utils';
-import { PluginType, ConfigObjectType, ParserResultType } from '@autodocument/shared';
+import path from "path";
+import { readFile, writeFile } from "fs/promises";
+import { tableHead, allowFileExtensions } from "./constants";
+import { handlePath } from "./utils";
+import {
+  PluginType,
+  ConfigObjectType,
+  ParserResultType,
+  currentExecPath,
+} from "@autodocument/shared";
 
-const write = async(writePlugin: PluginType ,parserResult: ParserResultType,configObject: ConfigObjectType)=>{
-  const {options} = writePlugin;
-  const {componentNames,documents} = parserResult;
-  const currentExecPath = process.cwd();
+const write = async (
+  writePlugin: PluginType,
+  parserResults: Array<ParserResultType>,
+  configObject: ConfigObjectType
+) => {
+  const { options } = writePlugin;
+  const { componentNames, documents } = parserResults[0];
   let docText = "";
   if (options?.headerContent) {
-    const headerContent = await fsPromise.readFile(path.resolve(currentExecPath, options.headerContent),'utf8').catch(e=>{
-      console.log(chalk.red('error'),e);// TODO: error message
-    })
+    const headerContent = await readFile(
+      path.resolve(currentExecPath, options.headerContent),
+      "utf8"
+    ).catch((e) => {
+      console.log(chalk.red("error"), e); // TODO: error message
+    });
 
     docText = `${headerContent || ""}\n`;
   }
@@ -39,28 +50,33 @@ const write = async(writePlugin: PluginType ,parserResult: ParserResultType,conf
   });
 
   if (options?.footerContent) {
-    const footerContent = await fsPromise.readFile(path.resolve(currentExecPath, options.footerContent),'utf8').catch(e=>{
-      console.log(chalk.red('error')); // TODO: error message
+    const footerContent = await readFile(
+      path.resolve(currentExecPath, options.footerContent),
+      "utf8"
+    ).catch((e) => {
+      console.log(chalk.red("error")); // TODO: error message
     });
 
     docText += `\n${footerContent || ""}\n`;
   }
 
-  const handleEndPath = await handlePath(configObject?.write?.end || '',{
+  const handleEndPath = await handlePath(configObject?.write?.end || "", {
     currentExecPath,
-    directoryToFilePath:true
-  }).catch(e=>{
-    console.log(chalk.red('error')); //TODO: error message
-  })
+    directoryToFilePath: true,
+  }).catch((e) => {
+    console.log(chalk.red("error")); //TODO: error message
+  });
 
-  if(!handleEndPath){return;}
+  if (!handleEndPath) {
+    return;
+  }
 
   try {
-    await fsPromise.writeFile(handleEndPath,docText);
+    await writeFile(handleEndPath, docText);
   } catch (e) {
     console.log(chalk.red("write readme file error")); // TODO: error message
     return Promise.reject();
   }
-}
+};
 
 export default write;
