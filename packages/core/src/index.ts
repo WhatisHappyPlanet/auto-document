@@ -8,7 +8,9 @@ import {
   DEV_CONFIG_FILE,
 } from "@autodocument/shared";
 
-console.log("[isDevelopment]", isDevelopment);
+isDevelopment && console.log("[Environment]:Dev");
+
+type PartialConfigObjectType = Partial<ConfigObjectType>;
 
 const getConfigFile = async () => {
   const configFilePath = path.resolve(
@@ -21,11 +23,15 @@ const getConfigFile = async () => {
   if (!configObjectJson) {
     return;
   }
-  const configObject: ConfigObjectType = JSON.parse(configObjectJson);
-  return configObject;
+  try {
+    const configObject: PartialConfigObjectType = JSON.parse(configObjectJson);
+    return configObject;
+  } catch (e) {
+    console.log(chalk.red("is not json"), e); // TODO: error message
+  }
 };
 
-const validateConfigFile = (configObject: ConfigObjectType) => {
+const validateConfigFile = (configObject: PartialConfigObjectType) => {
   const { parser, write } = configObject;
   let validate = true;
 
@@ -38,26 +44,25 @@ const validateConfigFile = (configObject: ConfigObjectType) => {
     console.log(chalk.red(""), "/n"); //TODO:error message
   }
 
-  if (!parser.entry) {
+  if (!parser?.entry) {
     validate = false;
     console.log(chalk.red(""), "/n"); //TODO:error message
   }
 
-  if (!Array.isArray(parser.plugins) || parser.plugins.length <= 0) {
+  if (!parser?.plugin) {
     validate = false;
     console.log(chalk.red(""), "/n"); //TODO:error message
   }
 
-  if (!write.end) {
+  if (!write?.end) {
     validate = false;
     console.log(chalk.red(""), "/n"); //TODO:error message
   }
 
-  if (!Array.isArray(write.plugins) || write.plugins.length <= 0) {
+  if (!write?.plugin) {
     validate = false;
     console.log(chalk.red(""), "/n"); //TODO:error message
   }
-
   return validate;
 };
 
@@ -72,23 +77,23 @@ const main = async () => {
     return;
   }
 
-  const parserPlugins = configObject.parser.plugins || [];
+  try {
+    const parserPlugin = require(configObject?.parser
+      ?.plugin as string).default;
 
-  const parserResults = await Promise.all(
-    parserPlugins.map(async (parserPlugin) => {
-      const plugin = require(parserPlugin.plugin).default;
-      return plugin(parserPlugin, configObject);
-    })
-  );
+    const parserResult = await parserPlugin?.(
+      configObject?.parser,
+      configObject
+    );
 
-  const writePlugins = configObject.write.plugins || [];
+    isDevelopment && console.log("[ParserResult]:", parserResult);
 
-  Promise.all(
-    writePlugins.map(async (writePlugin) => {
-      const plugin = require(writePlugin.plugin).default;
-      return plugin(writePlugin, parserResults, configObject);
-    })
-  );
+    const writePlugin = require(configObject?.write?.plugin as string).default;
+
+    writePlugin?.(configObject?.write, configObject, parserResult);
+  } catch (e) {
+    console.log(chalk.red("some error!!!"), e); //TODO: error message
+  }
 };
 
 main();

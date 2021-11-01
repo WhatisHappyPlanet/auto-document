@@ -4,19 +4,18 @@ import { readFile, writeFile } from "fs/promises";
 import { tableHead, allowFileExtensions } from "./constants";
 import { handlePath } from "./utils";
 import {
-  PluginType,
   ConfigObjectType,
   ParserResultType,
   currentExecPath,
 } from "@autodocument/shared";
 
 const write = async (
-  writePlugin: PluginType,
-  parserResults: Array<ParserResultType>,
-  configObject: ConfigObjectType
+  writePlugin: ConfigObjectType["write"],
+  configObject: ConfigObjectType,
+  parserResult: ParserResultType
 ) => {
   const { options } = writePlugin;
-  const { componentNames, documents } = parserResults[0];
+  const { componentNames, documents } = parserResult;
   let docText = "";
   if (options?.headerContent) {
     const headerContent = await readFile(

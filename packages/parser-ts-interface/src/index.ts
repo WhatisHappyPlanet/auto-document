@@ -4,15 +4,11 @@ import traverse from "@babel/traverse";
 import path from "path";
 const parser = require("@babel/parser");
 import { handlePath, parseComment } from "./utils";
-import {
-  ConfigObjectType,
-  PluginType,
-  currentExecPath,
-} from "@autodocument/shared";
+import { ConfigObjectType, currentExecPath } from "@autodocument/shared";
 
 const getDocData = async (
   componentPath: string,
-  options?: PluginType["options"]
+  options?: { [key: string]: any }
 ) => {
   const { interfaceName = "PropsType" } = options || {};
 
@@ -68,13 +64,11 @@ const getDocData = async (
 };
 
 const parserPlugin = async (
-  parserConfig: PluginType,
+  parserConfig: ConfigObjectType["parser"],
   configObject: ConfigObjectType
 ) => {
-  // 读取配置，获取到entryFile
-  // 处理 entryFile
-  const entryFile = configObject.parser.entry || "";
-  console.log(currentExecPath, entryFile);
+  const entryFile = parserConfig.entry;
+
   const handleEntryFile = await handlePath(entryFile, {
     currentExecPath,
     directoryToFilePath: true,
@@ -86,9 +80,6 @@ const parserPlugin = async (
     return;
   }
 
-  console.log("handleEntryFile", handleEntryFile);
-  // 读取解析 entryFile
-  // 处理组件及其路径
   const code = await readFile(handleEntryFile, "utf8").catch((e) => {
     console.log(chalk.red("error"), e); // TODO: error message
   });

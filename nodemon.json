@@ -15,5 +15,5 @@
     "NODE_ENV": "development"
   },
   "ext": "ts,json",
-  "exec": "lerna run build && lerna run test"
+  "exec": "lerna run build:dev && lerna run dev"
 }

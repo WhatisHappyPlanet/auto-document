@@ -23,7 +23,8 @@
   },
   "scripts": {
     "prepare": "tsup src/index.ts -d lib --format esm,cjs",
-    "build": "tsup src/index.ts -d lib --format esm,cjs --dts"
+    "build": "tsup src/index.ts -d lib --format esm,cjs --dts",
+    "build:dev": "tsup src/index.ts -d lib --format cjs --dts"
   },
   "bugs": {
     "url": "https://github.com/WhatisHappyPlanet/auto-document/issues"

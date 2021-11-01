@@ -2,16 +2,18 @@
 
 It can automatically read the code structure and generate the document by specifying the front-end component library development specification
 
+## Installation
+
+## Usage
+
+### Add configuration file
+
 ## Development
 
-For building all the packages, please run build script.
+### Structure
 
-```bash
-npm run build
-```
+### How to run it
 
-For test your package, please run test script.
+### Plugins
 
-```bash
-npm run test
-```
+## License
