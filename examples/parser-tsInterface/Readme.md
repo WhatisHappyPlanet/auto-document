@@ -1,9 +1,10 @@
-# Components
-<a href="#doc0"><font size=2 color=#00f>1.NavBar</font></a>
+[[_TOC_]]
+## header
 
-<a href="#doc1"><font size=2 color=#00f>2.Input</font></a>
+1. header Conetnt
 
-## <a id="doc0">1.NavBar</a>
+## Components
+### NavBar
 | Prop | Explanation |
 | :--: | :--: |
 | title | 标题 |
@@ -11,8 +12,14 @@
 | showRightButton | 显示右边按钮 |
 | rightButtonText | 右边按钮文案 |
 | platformTitle | 根据系统判断标题的位置，安卓会向左靠齐 |
-## <a id="doc1">2.Input</a>
+| test | 根据系统判断标题的位置，安卓会向左靠齐 |
+### Input
 | Prop | Explanation |
 | :--: | :--: |
 | title | 标题 |
 | placeHolder | 默认显示内容 |
+
+## footer
+
+1. footer Conetnt
+

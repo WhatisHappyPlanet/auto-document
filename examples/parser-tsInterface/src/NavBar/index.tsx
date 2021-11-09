@@ -1,3 +1,7 @@
+enum A {
+  B = 0,
+  C = 1,
+}
 interface PropsType {
   /** 标题 */
   title: string;
@@ -9,6 +13,8 @@ interface PropsType {
   rightButtonText?: string;
   /** 根据系统判断标题的位置，安卓会向左靠齐 */
   platformTitle?: boolean;
+  /** 根据系统判断标题的位置，安卓会向左靠齐 */
+  test?: A;
 }
 
-export default class NavBar{}
+export default class NavBar {}

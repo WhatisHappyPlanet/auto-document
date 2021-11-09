@@ -9,7 +9,8 @@
     "examples/",
     "packages/core/src",
     "packages/parser-ts-interface/src",
-    "packages/write-github-markdown/src"
+    "packages/write-github-markdown/src",
+    "packages/write-gitlab-markdown/src"
   ],
   "env": {
     "NODE_ENV": "development"

@@ -27,6 +27,7 @@ const getDocData = async (
 
   const documents: Array<string[]> = [];
 
+  // TODO: 为了解析类型需要使用 typescript compiler 进行重构 ast 解析以获取类型
   traverse(ast, {
     TSInterfaceDeclaration(path) {
       if (path?.node?.id?.name === interfaceName) {
@@ -34,6 +35,7 @@ const getDocData = async (
         Array.isArray(interfacePropertyNodePaths) &&
           interfacePropertyNodePaths.forEach((interfacePropertyNodePaths) => {
             const interfacePropertyNode = interfacePropertyNodePaths?.node;
+
             const leadingComments =
               interfacePropertyNode?.leadingComments || [];
 
@@ -77,7 +79,7 @@ const parserPlugin = async (
   });
 
   if (!handleEntryFile) {
-    return;
+    return Promise.reject();
   }
 
   const code = await readFile(handleEntryFile, "utf8").catch((e) => {
@@ -85,7 +87,7 @@ const parserPlugin = async (
   });
 
   if (!code) {
-    return;
+    return Promise.reject(); // TODO: error message
   }
 
   const ast = parser.parse(code, {
@@ -98,8 +100,7 @@ const parserPlugin = async (
 
   traverse(ast, {
     ExportNamedDeclaration(path) {
-      // TODO: type check
-      // @ts-ignore
+      //@ts-ignore
       componentNames.push(path?.node?.specifiers?.[0]?.exported.name);
       componentPaths.push(path?.node?.source?.value || "");
     },
@@ -126,7 +127,7 @@ const parserPlugin = async (
   });
 
   if (!documents) {
-    return Promise.reject();
+    return Promise.reject(); // TODO: error message
   }
 
   return {

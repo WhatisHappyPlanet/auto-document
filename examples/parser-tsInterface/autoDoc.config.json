@@ -8,10 +8,10 @@
   },
   "write": {
     "end": "./Readme.md",
-    "plugin": "@autodocument/write-github-markdown",
+    "plugin": "@autodocument/write-gitlab-markdown",
     "options": {
-      "headerContent": "",
-      "footerContent": ""
+      "headerContent": "./markdown/header.md",
+      "footerContent": "./markdown/footer.md"
     }
   }
 }
