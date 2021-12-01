@@ -13,11 +13,11 @@ const getDocData = async (
   const { interfaceName = "PropsType" } = options || {};
 
   const code = await readFile(componentPath, "utf8").catch((e) => {
-    return "";
+    return;
   });
 
   if (!code) {
-    return Promise.reject("error"); //TODO: error message
+    return Promise.reject();
   }
 
   const ast = parser.parse(code, {
@@ -75,7 +75,12 @@ const parserPlugin = async (
     currentExecPath,
     directoryToFilePath: true,
   }).catch((e) => {
-    console.log(chalk.red(e)); // TODO: error message
+    console.log(
+      chalk.red(
+        "[The entry file path cannot be processed correctly, please check]"
+      ),
+      e
+    );
   });
 
   if (!handleEntryFile) {
@@ -83,11 +88,11 @@ const parserPlugin = async (
   }
 
   const code = await readFile(handleEntryFile, "utf8").catch((e) => {
-    console.log(chalk.red("error"), e); // TODO: error message
+    console.log(chalk.red("[Failed to read entry file]"), e);
   });
 
   if (!code) {
-    return Promise.reject(); // TODO: error message
+    return Promise.reject();
   }
 
   const ast = parser.parse(code, {
@@ -123,11 +128,11 @@ const parserPlugin = async (
       return getDocData(componentPath, parserConfig.options);
     })
   ).catch((e) => {
-    console.log(chalk.red(`can not get comments from ${e}`)); // TODO: error message
+    console.log(chalk.red("Failed to parse document data"), e);
   });
 
   if (!documents) {
-    return Promise.reject(); // TODO: error message
+    return Promise.reject();
   }
 
   return {

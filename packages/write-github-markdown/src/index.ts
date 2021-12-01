@@ -2,11 +2,11 @@ import chalk from "chalk";
 import path from "path";
 import { readFile, writeFile } from "fs/promises";
 import { tableHead, allowFileExtensions } from "./constants";
-import { handlePath } from "./utils";
 import {
   ConfigObjectType,
   ParserResultType,
   currentExecPath,
+  handlePath,
 } from "@autodocument/shared";
 
 const write = async (
@@ -22,7 +22,7 @@ const write = async (
       path.resolve(currentExecPath, options.headerContent),
       "utf8"
     ).catch((e) => {
-      console.log(chalk.red("error"), e); // TODO: error message
+      console.log(chalk.red("[failed to get the header markdown content]"), e);
     });
 
     docText = `${headerContent || ""}\n`;
@@ -53,7 +53,7 @@ const write = async (
       path.resolve(currentExecPath, options.footerContent),
       "utf8"
     ).catch((e) => {
-      console.log(chalk.red("error")); // TODO: error message
+      console.log(chalk.red("[failed to get the footer markdown content]"), e);
     });
 
     docText += `\n${footerContent || ""}\n`;
@@ -63,7 +63,12 @@ const write = async (
     currentExecPath,
     directoryToFilePath: true,
   }).catch((e) => {
-    console.log(chalk.red("error")); //TODO: error message
+    console.log(
+      chalk.red(
+        "[The end file path cannot be processed correctly, please check]"
+      ),
+      e
+    );
   });
 
   if (!handleEndPath) {
@@ -73,7 +78,7 @@ const write = async (
   try {
     await writeFile(handleEndPath, docText);
   } catch (e) {
-    console.log(chalk.red("write readme file error")); // TODO: error message
+    console.log(chalk.red("[Failed to write document]"), e);
     return Promise.reject();
   }
 };

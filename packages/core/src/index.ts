@@ -5,20 +5,14 @@ import {
   ConfigObjectType,
   isDevelopment,
   currentExecPath,
-  DEV_CONFIG_FILE,
 } from "@autodocument/shared";
-
-isDevelopment && console.log("[Environment]:Dev");
 
 type PartialConfigObjectType = Partial<ConfigObjectType>;
 
 const getConfigFile = async () => {
-  const configFilePath = path.resolve(
-    currentExecPath,
-    isDevelopment ? DEV_CONFIG_FILE : "./autoDoc.config.json"
-  );
+  const configFilePath = path.resolve(currentExecPath, "autoDoc.config.json");
   const configObjectJson = await readFile(configFilePath, "utf8").catch((e) => {
-    console.log(chalk.red("error"), e); //TODO: error message
+    console.log(chalk.red("[Failed to read configuration file]"), e);
   });
   if (!configObjectJson) {
     return;
@@ -27,7 +21,7 @@ const getConfigFile = async () => {
     const configObject: PartialConfigObjectType = JSON.parse(configObjectJson);
     return configObject;
   } catch (e) {
-    console.log(chalk.red("is not json"), e); // TODO: error message
+    console.log(chalk.red("[Failed to parse json]"), e);
   }
 };
 
@@ -37,32 +31,40 @@ const validateConfigFile = (configObject: PartialConfigObjectType) => {
 
   if (!parser) {
     validate = false;
-    console.log(chalk.red(""), "/n"); //TODO:error message
+    // console.log(chalk.red(""), "/n"); //TODO:error message
   }
   if (!write) {
     validate = false;
-    console.log(chalk.red(""), "/n"); //TODO:error message
+    // console.log(chalk.red(""), "/n"); //TODO:error message
   }
 
   if (!parser?.entry) {
     validate = false;
-    console.log(chalk.red(""), "/n"); //TODO:error message
+    // console.log(chalk.red(""), "/n"); //TODO:error message
   }
 
   if (!parser?.plugin) {
     validate = false;
-    console.log(chalk.red(""), "/n"); //TODO:error message
+    // console.log(chalk.red(""), "/n"); //TODO:error message
   }
 
   if (!write?.end) {
     validate = false;
-    console.log(chalk.red(""), "/n"); //TODO:error message
+    // console.log(chalk.red(""), "/n"); //TODO:error message
   }
 
   if (!write?.plugin) {
     validate = false;
-    console.log(chalk.red(""), "/n"); //TODO:error message
+    // console.log(chalk.red(""), "/n"); //TODO:error message
   }
+
+  !validate &&
+    console.log(
+      chalk.red(
+        "[Configuration item verification failed, please check the configuration file]"
+      )
+    );
+
   return validate;
 };
 
@@ -91,8 +93,15 @@ const main = async () => {
     const writePlugin = require(configObject?.write?.plugin as string).default;
 
     writePlugin?.(configObject?.write, configObject, parserResult);
+
+    console.log(chalk.green("File written successfully"));
   } catch (e) {
-    console.log(chalk.red("some error!!!"), e); //TODO: error message
+    console.log(
+      chalk.red(
+        "[An error occurred during the parsing process, please check whether the plug-in is installed and correctly configured]"
+      ),
+      e
+    );
   }
 };
 

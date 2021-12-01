@@ -1,0 +1,17 @@
+{
+  "parser": {
+    "entry": "./src/index.ts",
+    "plugin": "@autodocument/parser-ts-interface",
+    "options": {
+      "interfaceName": "PropsType"
+    }
+  },
+  "write": {
+    "end": "./Readme.md",
+    "plugin": "@autodocument/write-gitlab-markdown",
+    "options": {
+      "headerContent": "./markdown/header.md",
+      "footerContent": "./markdown/footer.md"
+    }
+  }
+}

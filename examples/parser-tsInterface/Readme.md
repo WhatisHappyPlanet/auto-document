@@ -12,7 +12,7 @@
 | showRightButton | 显示右边按钮 |
 | rightButtonText | 右边按钮文案 |
 | platformTitle | 根据系统判断标题的位置，安卓会向左靠齐 |
-| test | 根据系统判断标题的位置，安卓会向左靠齐 |
+| test | testasdsad |
 ### Input
 | Prop | Explanation |
 | :--: | :--: |
