@@ -1,6 +1,6 @@
 {
   "name": "@autodocument/write-gitlab-markdown",
-  "version": "0.0.0",
+  "version": "0.0.1-alpha.0",
   "description": "write gihub markdown",
   "author": "liqi.shi <liqi.shi@shopee.com>",
   "homepage": "https://github.com/WhatisHappyPlanet/auto-document/tree/main/packages/write-gitlab-markdown#readme",
@@ -35,7 +35,7 @@
     "typescript": "^4.4.4"
   },
   "dependencies": {
-    "@autodocument/shared": "^0.0.0",
+    "@autodocument/shared": "^0.0.1-alpha.0",
     "chalk": "^4.1.2"
   }
 }

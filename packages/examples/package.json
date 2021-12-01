@@ -1,6 +1,6 @@
 {
   "name": "examples",
-  "version": "0.0.0",
+  "version": "0.0.1-alpha.0",
   "private": true,
   "description": "use for test autoDoc",
   "author": "liqi.shi <liqi.shi@shopee.com>",
@@ -26,8 +26,8 @@
     "url": "https://github.com/WhatisHappyPlanet/autoDoc/issues"
   },
   "dependencies": {
-    "@autodocument/core": "^0.0.0",
-    "@autodocument/parser-ts-interface": "^0.0.0",
-    "@autodocument/write-gitlab-markdown": "^0.0.0"
+    "@autodocument/core": "^0.0.1-alpha.0",
+    "@autodocument/parser-ts-interface": "^0.0.1-alpha.0",
+    "@autodocument/write-gitlab-markdown": "^0.0.1-alpha.0"
   }
 }
