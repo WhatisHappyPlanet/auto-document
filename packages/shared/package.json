@@ -1,7 +1,7 @@
 {
   "name": "@autodocument/shared",
   "version": "0.0.0",
-  "description": "> TODO: description",
+  "description": "utils helper function",
   "author": "liqi.shi <liqi.shi@shopee.com>",
   "homepage": "https://github.com/WhatisHappyPlanet/auto-document/tree/master/packages/shared#readme",
   "license": "ISC",
@@ -16,7 +16,7 @@
     "lib"
   ],
   "publishConfig": {
-    "registry": "https://registry.npm.org/"
+    "access": "public"
   },
   "scripts": {
     "prepare": "tsup src/index.ts -d lib --format esm,cjs",
